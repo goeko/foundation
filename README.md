@@ -174,7 +174,8 @@ Yeoman Generator
 
 Gökhan Karaca
 
-* 2013-11-17 - Marge to master
+* 2013-11-17 - Merge to develop branch
+
 
 MIT Open Source License
 =======================
