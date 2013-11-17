@@ -1,59 +1,46 @@
-/*jslint unparam: true, browser: true, indent: 2 */
-
 ;(function ($, window, document, undefined) {
   'use strict';
 
   Foundation.libs.dropdown = {
     name : 'dropdown',
 
-    version : '4.3.2',
+    version : '5.0.0',
 
     settings : {
       activeClass: 'open',
       is_hover: false,
+      direction: 'down',
       opened: function(){},
       closed: function(){}
     },
 
     init : function (scope, method, options) {
-      this.scope = scope || this.scope;
-      Foundation.inherit(this, 'throttle scrollLeft data_options');
+      Foundation.inherit(this, 'throttle');
 
-      if (typeof method === 'object') {
-        $.extend(true, this.settings, method);
-      }
-
-      if (typeof method !== 'string') {
-
-        if (!this.settings.init) {
-          this.events();
-        }
-
-        return this.settings.init;
-      } else {
-        return this[method].call(this, options);
-      }
+      this.bindings(method, options);
     },
 
-    events : function () {
+    events : function (scope) {
       var self = this;
 
       $(this.scope)
+        .off('.dropdown')
         .on('click.fndtn.dropdown', '[data-dropdown]', function (e) {
-          var settings = $.extend({}, self.settings, self.data_options($(this)));
+          var settings = $(this).data('dropdown-init');
           e.preventDefault();
 
           if (!settings.is_hover) self.toggle($(this));
         })
         .on('mouseenter', '[data-dropdown]', function (e) {
-          var settings = $.extend({}, self.settings, self.data_options($(this)));
+          var settings = $(this).data('dropdown-init');
           if (settings.is_hover) self.toggle($(this));
         })
         .on('mouseleave', '[data-dropdown-content]', function (e) {
           var target = $('[data-dropdown="' + $(this).attr('id') + '"]'),
-              settings = $.extend({}, self.settings, self.data_options(target));
+              settings = target.data('dropdown-init');
           if (settings.is_hover) self.close.call(self, $(this));
         })
+<<<<<<< HEAD
         .on('opened.fndtn.dropdown', '[data-dropdown-content]', this.settings.opened)
         .on('closed.fndtn.dropdown', '[data-dropdown-content]', this.settings.closed);
 
@@ -69,15 +56,31 @@
           e.stopPropagation();
           return;
         }
+=======
+        .on('click.fndtn.dropdown', function (e) {
+          var parent = $(e.target).closest('[data-dropdown-content]');
+>>>>>>> refs/remotes/origin/5.0-wip
 
-        self.close.call(self, $('[data-dropdown-content]'));
-      });
+          if ($(e.target).data('dropdown') || $(e.target).parent().data('dropdown')) {
+            return;
+          }
+          if (!($(e.target).data('revealId')) && 
+            (parent.length > 0 && ($(e.target).is('[data-dropdown-content]') || 
+              $.contains(parent.first()[0], e.target)))) {
+            e.stopPropagation();
+            return;
+          }
 
-      $(window).on('resize.fndtn.dropdown', self.throttle(function () {
-        self.resize.call(self);
-      }, 50)).trigger('resize');
+          self.close.call(self, $('[data-dropdown-content]'));
+        })
+        .on('opened.fndtn.dropdown', '[data-dropdown-content]', this.settings.opened)
+        .on('closed.fndtn.dropdown', '[data-dropdown-content]', this.settings.closed);
 
-      this.settings.init = true;
+      $(window)
+        .off('.dropdown')
+        .on('resize.fndtn.dropdown', self.throttle(function () {
+          self.resize.call(self);
+        }, 50)).trigger('resize');
     },
 
     close: function (dropdown) {
@@ -129,25 +132,33 @@
     },
 
     css : function (dropdown, target) {
-      var offset_parent = dropdown.offsetParent();
-      // if (offset_parent.length > 0 && /body/i.test(dropdown.offsetParent()[0].nodeName)) {
-        var position = target.offset();
-        position.top -= offset_parent.offset().top;
-        position.left -= offset_parent.offset().left;
-      // } else {
-      //   var position = target.position();
-      // }
+      var offset_parent = dropdown.offsetParent(),
+          position = target.offset(),
+          settings = target.data('dropdown-init');
 
+      position.top -= offset_parent.offset().top;
+      position.left -= offset_parent.offset().left;
+      console.log(settings.direction)
+      this[settings.direction](dropdown, target, position);
+      
+      return dropdown;
+    },
+
+    small : function () {
+      return matchMedia(Foundation.media_queries.small).matches;
+    },
+
+    down : function () {
       if (this.small()) {
         dropdown.css({
           position : 'absolute',
           width: '95%',
           'max-width': 'none',
-          top: position.top + this.outerHeight(target)
+          top: position.top + target.outerHeight()
         });
         dropdown.css(Foundation.rtl ? 'right':'left', '2.5%');
       } else {
-        if (!Foundation.rtl && $(window).width() > this.outerWidth(dropdown) + target.offset().left && !this.data_options(target).align_right) {
+        if (!Foundation.rtl && $(window).width() > dropdown.outerWidth() + target.offset().left) {
           var left = position.left;
           if (dropdown.hasClass('right')) {
             dropdown.removeClass('right');
@@ -156,21 +167,15 @@
           if (!dropdown.hasClass('right')) {
             dropdown.addClass('right');
           }
-          var left = position.left - (this.outerWidth(dropdown) - this.outerWidth(target));
+          var left = position.left - (dropdown.outerWidth() - target.outerWidth());
         }
 
         dropdown.attr('style', '').css({
           position : 'absolute',
-          top: position.top + this.outerHeight(target),
+          top: position.top + target.outerHeight(),
           left: left
         });
       }
-
-      return dropdown;
-    },
-
-    small : function () {
-      return $(window).width() < 768 || $('html').hasClass('lt-ie9');
     },
 
     off: function () {
@@ -178,9 +183,8 @@
       $('html, body').off('.fndtn.dropdown');
       $(window).off('.fndtn.dropdown');
       $('[data-dropdown-content]').off('.fndtn.dropdown');
-      this.settings.init = false;
     },
 
     reflow : function () {}
   };
-}(Foundation.zj, this, this.document));
+}(jQuery, this, this.document));

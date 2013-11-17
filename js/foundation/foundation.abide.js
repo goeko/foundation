@@ -1,15 +1,16 @@
-/*jslint unparam: true, browser: true, indent: 2 */
-
 ;(function ($, window, document, undefined) {
   'use strict';
 
   Foundation.libs.abide = {
     name : 'abide',
 
+<<<<<<< HEAD
     version : '4.3.3',
+=======
+    version : '5.0.0',
+>>>>>>> refs/remotes/origin/5.0-wip
 
     settings : {
-      live_validate : true,
       focus_on_invalid : true,
       timeout : 1000,
       patterns : {
@@ -49,20 +50,12 @@
     timer : null,
 
     init : function (scope, method, options) {
-      if (typeof method === 'object') {
-        $.extend(true, this.settings, method);
-      }
-
-      if (typeof method !== 'string') {
-        if (!this.settings.init) { this.events(); }
-
-      } else {
-        return this[method].call(this, options);
-      }
+      this.bindings(method, options);
     },
 
-    events : function () {
+    events : function (scope) {
       var self = this,
+<<<<<<< HEAD
           forms = $('form[data-abide]', this.scope).attr('novalidate', 'novalidate');
 
       forms
@@ -79,13 +72,29 @@
         .find('input, textarea, select')
         .on('blur change', function (e) {
           self.validate([this], e);
+=======
+          form = $(scope).attr('novalidate', 'novalidate'),
+          settings = form.data('abide-init');
+
+      form
+        .off('.abide')
+        .on('submit.fndtn.abide validate.fndtn.abide', function (e) {
+          var is_ajax = /ajax/i.test($(this).attr('data-abide'));
+          return self.validate($(this).find('input, textarea, select').get(), e, is_ajax);
+>>>>>>> refs/remotes/origin/5.0-wip
         })
-        .on('keydown', function (e) {
-          clearTimeout(self.timer);
-          self.timer = setTimeout(function () {
+        .find('input, textarea, select')
+          .off('.abide')
+          .on('blur.fndtn.abide change.fndtn.abide', function (e) {
             self.validate([this], e);
-          }.bind(this), self.settings.timeout);
-        });
+          })
+          .on('keydown.fndtn.abide', function (e) {
+            var settings = $(this).closest('form').data('abide-init');
+            clearTimeout(self.timer);
+            self.timer = setTimeout(function () {
+              self.validate([this], e);
+            }.bind(this), settings.timeout);
+          });
     },
 
     validate : function (els, e, is_ajax) {
@@ -212,4 +221,4 @@
         return valid
     }
   };
-}(Foundation.zj, this, this.document));
+}(jQuery, this, this.document));

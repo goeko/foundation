@@ -1,33 +1,35 @@
-Welcome to Foundation
-=====================
+# [Foundation](http://foundation.zurb.com)
 
 Foundation is the most advanced responsive front-end framework in the world. You can quickly prototype and build sites or apps that work on any kind of device with Foundation, which includes layout constructs (like a fully responsive grid), elements and best practices.
 
-Homepage:      http://foundation.zurb.com<br />
-Documentation: http://foundation.zurb.com/docs<br />
-Download:      http://foundation.zurb.com/download.php
+To get started, check out <http://foundation.zurb.com/docs>
 
-Foundation is MIT-licensed and absolutely free to use. Foundation wouldn't be possible without the support of the entire ZURB team, our friends and colleagues who gave feedback, and some luminaries who did some heavy lifting that we took advantage of (thanks guys).
 
-Repo Contents
-=============
+## Quickstart
 
-* Base Source and Compilation Files for SCSS
-* Docs
-* README
+To get going with Foundation you can:
 
-ZURB
-====
+  * [Download the latest release](http://foundation.zurb.com/releases/latest.zip)
+  * [Install with Bower](http://bower.io): `bower install foundation`
 
-Foundation was made by [ZURB](http://www.zurb.com), a product design company in Campbell, CA.
+## What's included?
 
-If Foundation knocks your socks off the way we hope it does and you want more, why not check out [our jobs](http://www.zurb.com/talent)?
+```
+foundation/
+├── css/
+│   ├── foundation.css
+│   ├── foundation.min.css
+├── js/
+│   ├── foundation.js
+│   └── foundation.min.js
+└── index.html
+```
 
-Community
-=========
+## Documentation
 
-Many thanks to all the people working on Foundation either to improve the base code or to support specific frameworks. If you want to get on this readme send an email to foundation@zurb.com, and if you have questions you can join the Unofficial Foundation Google Group here: http://groups.google.com/group/foundation-framework-
+Foundation uses [Assemble.io](http://assemble.io) and [Grunt](http://gruntjs.com/) to generate it's [documentation pages](http://foundation.zurb.com/docs). Documentation can also be run from your local computer:
 
+<<<<<<< HEAD
 WordPress (Versions marked 3/20/13)
 
 * [WP-Forge](http://themeawesome.com/responsive-wordpress-theme/) by Thomas E. Vasquez using Foundation 4.3.1
@@ -41,18 +43,30 @@ WordPress (Versions marked 3/20/13)
 * [WP-Foundation](http://320press.com/wp-foundation/features/) by 320press using Foundation version 3
 * [f415](https://github.com/javorszky/f415) by Gabor Javorszky
 * [Basey](https://github.com/zslabs/basey-theme) by Zach Schnackel 
+=======
+### View documentation locally
+>>>>>>> refs/remotes/origin/5.0-wip
 
-Joomla
+You'll want to clone the Foundation repo first and install all the dependencies. You can do this using the following commands:
 
-* [Joomla Template](https://github.com/meridiansoftech/joomla_foundation_template) by Arnold Mwumva Ford, Meridian Softech
-* [Joomla Template](https://github.com/antonydoyle/siegeengine2) by Antony Doyle, Siege21
+```
+git clone git@github.com:zurb/foundation.git
+cd foundation
+npm install -g grunt-cli
+npm install
+```
 
-Drupal
+Then just run `grunt` and the documentation will be compiled:
 
-* [Drupal Theme](https://github.com/drewkennelly/foundation7) by Drew Kennelly
-* [Zurb Foundation](http://drupal.org/project/zurb-foundation) Supporting F3.2, F4 & Drupal 8  by [Ishmael Sanchez](http://ishmaelsanchez.com), [Chris Lee](http://hire.chrisjlee.net)
-* [Zoundation Theme](http://drupal.org/project/zoundation) by [Andrea Burton](https://twitter.com/andreaburton) & [Jeff Graham](https://twitter.com/jgraham909), FunnyMonkey
+```
+foundation/
+├── dist/
+│   └── ...
+├────── docs/
+│       └── ...
+```
 
+<<<<<<< HEAD
 Alfred
 
 * [Foundation Alfred](https://github.com/joshmedeski/foundation-alfred) by Josh Medeski (@joshmedeski)
@@ -170,3 +184,6 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+=======
+Copyright (c) 2013 ZURB, inc.
+>>>>>>> refs/remotes/origin/5.0-wip

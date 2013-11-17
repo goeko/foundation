@@ -1,5 +1,7 @@
+@import "global";
+
 //
-// Panel Variables
+// @variables
 //
 $include-html-panel-classes: $include-html-classes !default;
 
@@ -23,10 +25,12 @@ $panel-font-color-alt: #fff !default;
 $panel-header-adjust: true !default;
 $callout-panel-link-color: #fff !default;
 //
-// Panel Mixins
+// @mixins
 //
-
 // We use this mixin to create panels.
+// $bg - Sets the panel background color. Default: $panel-pg || darken(#fff, 5%) !default
+// $padding - Sets the panel padding amount. Default: $panel-padding || em-calc(20)
+// $adjust - Sets the font color based on the darkness of the bg & resets header line-heights for panels. Default: $panel-header-adjust || true
 @mixin panel($bg:$panel-bg, $padding:$panel-padding, $adjust:$panel-header-adjust) {
 
   @if $bg {
@@ -59,25 +63,26 @@ $callout-panel-link-color: #fff !default;
   }
 }
 
-// Only include these classes if the option exists
-@if $include-html-panel-classes != false {
+@include exports("panel") {
+  @if $include-html-panel-classes {
 
-  /* Panels */
-  .panel { @include panel;
+    /* Panels */
+    .panel { @include panel;
 
-    &.callout {
-      @include panel($primary-color);
-      @include inset-shadow($active:false);
-      a {
-        color: $callout-panel-link-color;
+      &.callout {
+        @include panel($primary-color);
+        @include inset-shadow($active:false);
+        a {
+          color: $callout-panel-link-color;
+        }
       }
-    }
 
-    &.radius {
-      @include panel($bg:false);
-      @include radius;
+      &.radius {
+        @include panel($bg:false);
+        @include radius;
+      }
+
     }
 
   }
-
 }

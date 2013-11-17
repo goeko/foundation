@@ -1,0 +1,125 @@
+---
+layout: doc/layouts/default.html
+---
+
+# Thumbnails
+
+<h3 class="subheader">If you are going to use an image as an anchor, we got you covered. All you gotta do is wrap an `a.th` around your image and voilà!</h3>
+
+<a class="th" href="http://placehold.it/100x100"><img src="http://placehold.it/100x100" /></a>
+
+***
+
+<h3>Basic</h3>
+
+Using minimal markup you can create a thumbnail image.
+
+<div class="row">
+  <div class="large-6 columns">
+{{#markdown}}
+<h4>HTML</h4>
+```html
+<a class="th" href="../img/demos/demo2.png">
+  <img src="../img/demos/demo2-th.png">
+</a>
+```
+{{/markdown}}
+  </div>
+  <div class="large-6 columns">
+    <h4>Rendered HTML</h4>
+    <a class="th" href="http://placehold.it/100x100"><img src="http://placehold.it/100x100"></a>
+  </div>
+</div>
+
+<h3>Advanced</h3>
+
+Additional classes can be added to your thumbnails to change it's appearance.
+
+<div class="row">
+  <div class="large-6 columns">
+    <h4>HTML</h4>
+{{#markdown}}
+```html
+<a class="th [radius]" href="#">
+  <img src="http://placehold.it/100x100">
+</a>
+```
+{{/markdown}}
+  </div>
+  <div class="large-6 columns">
+    <h4>Rendered HTML</h4>
+    <a class="th" href="#"><img src="http://placehold.it/100x100"></a>
+  </div>
+</div>
+
+***
+
+## Customize with Sass
+
+Thumbnails can be easily customized using our provided Sass variables.
+
+<h4>SCSS</h4>
+
+```scss
+$include-html-media-classes: $include-html-classes;
+
+/* We use these to control border styles */
+$thumb-border-style: solid;
+$thumb-border-width: 4px;
+$thumb-border-color: #fff;
+$thumb-box-shadow: 0 0 0 1px rgba(#000,.2);
+$thumb-box-shadow-hover: 0 0 6px 1px rgba($primary-color,0.5);
+
+/* Radius and transition speed for thumbs */
+$thumb-radius: $global-radius;
+$thumb-transition-speed: 200ms;
+```
+
+***
+
+## Semantic Markup with Sass
+
+You can create your own thumbnails using our own Sass mixins.
+
+<h3>Basic</h3>
+
+You can use the `thumb()` mixin to create your own thumbnails, like so:
+
+<h4>SCSS</h4>
+```scss
+.custom-thumbnail-class {
+  @include thumb;
+}
+```
+
+<h4>HTML</h4>
+```html
+<a class="custom-thumbnail-class" href="http://placehold.it/100x100">
+  <img src="http://placehold.it/100x100">
+</a>
+```
+
+<h3>Advanced</h3>
+
+You can further customize your thumbnails using the provided options in the `thumb()` mixin:
+
+<h4>SCSS</h4>
+```scss
+.custom-thumbnail-class {
+  @include thumb(
+    // Width of border around thumbnail
+    $border-width: 2px,
+    // Box shadow to apply to thumbnail
+    $box-shadow: 0 0 0 1px rgba(#000,.2),
+    // Box shadow to apply on hover
+    $box-shadow-hover: 0 0 6px 1px rgba(#ccc,0.5)
+  );
+}
+```
+
+<h4>HTML</h4>
+```html
+<a class="custom-thumbnail-class" href="http://placehold.it/100x100">
+  <img src="http://placehold.it/100x100">
+</a>
+```

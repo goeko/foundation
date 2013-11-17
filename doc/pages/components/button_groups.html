@@ -1,0 +1,157 @@
+---
+layout: doc/layouts/default.html
+---
+
+# Button Groups
+
+<h3 class="subheader">Button groups are great when you need to display a group of actions in a bar. These build off the button styles and work perfectly with the grid.</h3>
+
+{{> examples_button_group_basic}}
+
+***
+
+<h3>Basic</h3>
+
+Using minimal markup you can create a button group
+
+<div class="row">
+  <div class="large-6 columns">
+    <h4>HTML</h4>
+{{> examples_button_group_basic_rendered}}
+  </div>
+  <div class="large-6 columns">
+    <h4>Rendered HTML</h4>
+{{> examples_button_group_basic}}
+  </div>
+</div>
+
+<h3>Advanced</h3>
+
+Additional classes can be added to your button groups to change its appearance
+
+<div class="row">
+  <div class="large-6 columns">
+    <h4>HTML</h4>
+{{#markdown}}
+```html
+<ul class="button-group [radius round]">
+  <li><a href="#" class="button [secondary alert success]">Button 1</a></li>
+  <li><a href="#" class="button [secondary alert success]">Button 2</a></li>
+  <li><a href="#" class="button [secondary alert success]">Button 3</a></li>
+  <li><a href="#" class="button [secondary alert success]">Button 4</a></li>
+</ul>
+```
+{{/markdown}}
+  </div>
+  <div class="large-6 columns">
+    <h4>Rendered HTML</h4>
+    <ul class="button-group radius">
+      <li><a href="#" class="button [secondary alert success]">Button 1</a></li>
+      <li><a href="#" class="button [secondary alert success]">Button 2</a></li>
+      <li><a href="#" class="button [secondary alert success]">Button 3</a></li>
+      <li><a href="#" class="button [secondary alert success]">Button 4</a></li>
+    </ul>
+  </div>
+</div>
+
+***
+
+## Button Bars
+
+<h3 class="subheader">A button bar is a group of button groups, perfect for situations where you want groups of actions that are all related to a similar element or page. Simply wrap two or more button groups in a `.button-bar` and Foundation takes care of the rest.</h3>
+
+{{> examples_button_group_bar}}
+
+***
+
+<h3>Basic</h3>
+
+Using minimal markup you can create a button bar.
+
+<h4>HTML</h4>
+
+{{> examples_button_group_bar}}
+
+<h4>Rendered HTML</h4>
+
+{{> examples_button_group_bar_rendered}}
+
+<h3>Advanced</h3>
+
+Additional classes can be added to your button bar to change it's appearance.
+
+
+<h4>HTML</h4>
+
+{{> examples_button_group_bar_advanced}}
+
+<h4>Rendered HTML</h4>
+
+{{> examples_button_group_bar_advanced_rendered}}
+
+***
+
+## Customize with Sass
+
+Button bars can be easily customized using our provided Sass variables.
+
+<h4>SCSS</h4>
+
+{{> examples_button_group_variables}}
+
+***
+
+## Semantic Markup with Sass
+
+<h3>Basic</h3>
+
+You can use the `button-group-container()` and `button-group-style()` mixins to create your own button groups and button bars with semantic markup, like so:
+
+<div class="row">
+  <div class="large-6 columns">
+    <h4>SCSS</h4>
+{{#markdown}}
+```scss
+.custom-button-group-class {
+  @include button-group-container();
+  .custom-button-class {
+    @include button();
+  }
+  & > li { @include button-group-style(); }
+}
+```
+{{/markdown}}
+
+  <p>You can find more information regarding button mixins <a href="{{relative absolute 'dist/docs/components/buttons.html'}}">here</a></p>
+  </div>
+  <div class="large-6 columns">
+    <h4>HTML</h4>
+    {{> examples_button_group_basic_mixin}}
+  </div>
+</div>
+
+<h3>Advanced</h3>
+
+You can further customize your button groups using using the provided options in the `button-group-container()` and `button-group-style()` mixin:
+
+##### Button Group Container Options
+
+<h4>SCSS</h4>
+
+{{> examples_button_group_container_mixin}}
+
+##### Button Group Style Options
+
+{{> examples_button_group_style_mixin}}
+
+***
+
+##### Sass Errors?
+
+If the default "foundation" import was commented out, then make sure you import this file:
+
+<h4>SCSS</h4>
+
+```scss
+@import "foundation/components/grid";
+```
