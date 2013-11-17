@@ -2,50 +2,6 @@ module.exports = function(grunt) {
   var hljs = require('highlight.js');
   hljs.LANGUAGES['scss'] = require('./lib/scss.js')(hljs);
 
-<<<<<<< HEAD
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-karma');
-
-    grunt.initConfig({
-      karma: {
-        options: {
-          configFile: 'karma.conf.js',
-          runnerPort: 9999,
-          //background: true
-        },
-        continuous: {
-          singleRun: true,
-          browsers: ['TinyPhantomJS', 'SmallPhantomJS']
-        },
-        zepto: {
-          configFile: 'karma.zepto.conf.js',
-          singleRun: true,
-          browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'SmallChrome', 'Firefox'],
-          reporters: 'dots'
-        },
-        dev: {
-          singleRun: true,
-          browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'SmallChrome', 'Firefox'],
-          reporters: 'dots'
-        },
-        zepto_watch: {
-          background: true,
-          configFile: 'karma.zepto.conf.js',
-          browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'SmallChrome', 'Firefox'],
-        },
-        dev_watch: {
-          background: true,
-          browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'SmallChrome', 'Firefox'],
-        },
-        dev_watch_mac: {
-          background: true,
-          browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'SmallChrome', 'Firefox', 'Safari']
-        },
-        dev_watch_win: {
-          background: true,
-          browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'SmallChrome', 'Firefox', 'IE']
-=======
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
@@ -97,8 +53,8 @@ module.exports = function(grunt) {
         },
         files: {
           'dist/assets/css/foundation.css': '<%= foundation.scss %>',
+          'dist/assets/css/normalize.css': 'scss/normalize.scss',
           'dist/docs/assets/css/docs.css': 'doc/assets/scss/docs.scss'
->>>>>>> refs/remotes/origin/5.0-wip
         }
       },
       dist_compressed: {
@@ -143,7 +99,46 @@ module.exports = function(grunt) {
 
     clean: ['dist/'],
 
-    watch: {
+    karma: {
+      options: {
+        configFile: 'karma.conf.js',
+        runnerPort: 9999,
+      },
+      continuous: {
+        singleRun: true,
+        browsers: ['TinyPhantomJS', 'SmallPhantomJS']
+      },
+      dev: {
+        singleRun: true,
+        browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'TinyChrome', 'Firefox'],
+        reporters: 'dots'
+      },
+      dev_watch: {
+        background: true,
+        browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'TinyChrome', 'Firefox'],
+      },
+      mac: {
+        singleRun: true,
+        browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'TinyChrome', 'Firefox', 'Safari'],
+        reporters: 'dots'
+      },
+      win: {
+        singleRun: true,
+        browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'TinyChrome', 'Firefox', 'IE'],
+        reporters: 'dots'
+      }
+    },
+
+    watch_start: {
+      karma: {
+        files: [
+          'dist/assets/js/*.js',
+          'spec/**/*.js',
+          'dist/assets/css/*.css'
+        ],
+        tasks: ['karma:dev_watch:run']
+      },
+
       styles: {
         files: ['scss/**/*.scss', 'doc/assets/**/*.scss'],
         tasks: ['sass'],
@@ -151,24 +146,9 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['js/**/*.js', 'doc/assets/js/**/*.js'],
-        tasks: ['concat', 'uglify'],
+        tasks: ['copy', 'concat', 'uglify'],
         options: {livereload:true}
       },
-<<<<<<< HEAD
-      watch_start: {
-        karma: {
-            files: [
-                'js/**/*.js',
-                'spec/**/*.js',
-                'test/stylesheets/**/*.css'
-            ],
-            tasks: ['karma:dev_watch:run', 'karma:zepto_watch:run']
-        },
-        css: {
-            files: 'scss/**/*.scss',
-            tasks: ['sass']
-        },
-=======
       dist_docs: {
         files: ['doc/{includes,layouts,pages}/**/*.html'],
         tasks: ['assemble:dist_docs'],
@@ -193,7 +173,6 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: 'dist/assets/', src: ['**'], dest: 'foundation/'}
         ]
->>>>>>> refs/remotes/origin/5.0-wip
       }
     }
   });
@@ -205,21 +184,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('assemble');
 
-<<<<<<< HEAD
-    grunt.registerTask('test', ['sass:test']);
-    grunt.registerTask('default', ['test', 'karma:dev', 'karma:zepto']);
-
-    grunt.task.renameTask('watch', 'watch_start');
-    grunt.task.registerTask('watch', ['karma:dev_watch:start', 'karma:zepto_watch:start', 'watch_start']);
-    grunt.task.registerTask('watch:mac', ['karma:dev_watch_mac:start', 'watch_start']);
-    grunt.task.registerTask('watch:win', ['karma:dev_watch_win:start', 'watch_start']);
-=======
+  grunt.task.renameTask('watch', 'watch_start');
+  grunt.task.registerTask('watch', ['karma:dev_watch:start', 'watch_start']);
 
   grunt.registerTask('compile:assets', ['clean', 'sass', 'concat', 'uglify', 'copy']);
   grunt.registerTask('compile', ['compile:assets', 'assemble']);
   grunt.registerTask('build', ['compile', 'compress']);
   grunt.registerTask('default', ['compile', 'watch']);
->>>>>>> refs/remotes/origin/5.0-wip
+  grunt.registerTask('travis', ['compile', 'karma:continuous']);
 };

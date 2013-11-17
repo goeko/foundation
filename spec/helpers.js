@@ -2,8 +2,8 @@ function when(size, testFunc) {
   return function() {
     var runFunc = false;
 
-    if(size === 'tiny') {
-      if(!matchMedia(Foundation.media_queries['small']).matches) {
+    if(size === 'small') {
+      if(!matchMedia(Foundation.media_queries['medium']).matches) {
         runFunc = true;
       }
     } else if(matchMedia(Foundation.media_queries[size]).matches) {
@@ -14,7 +14,7 @@ function when(size, testFunc) {
       testFunc.apply(this);
     } else {
       // Uncomment to verify skipping correct tests for media queries...
-      //console.log('[' + document.width.toString() + 'px]: Skipping ' + jasmine.getEnv().currentSpec.getFullName());
+      //console.log('[' + $(document).width().toString() + 'px]: Skipping ' + jasmine.getEnv().currentSpec.getFullName());
     }
   }
 }
@@ -26,11 +26,11 @@ beforeEach(function() {
     $('head').append('<style id="foundation-style"></style>')
   }
 
-  $.ajax({ url: '/base/test/stylesheets/normalize.css', cache: true, async: false, success: function(data) {
+  $.ajax({ url: '/base/dist/assets/css/normalize.css', cache: true, async: false, success: function(data) {
     $('#foundation-style').html(data);
   }});
 
-  $.ajax({ url: '/base/test/stylesheets/foundation.css', cache: true, async: false, success: function(data) {
+  $.ajax({ url: '/base/dist/assets/css/foundation.css', cache: true, async: false, success: function(data) {
     $('#foundation-style').append(data);
   }});
 });

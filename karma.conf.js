@@ -8,10 +8,13 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     files: [
-        {pattern: 'test/stylesheets/*.css', watched: true, served: true, included: false},
-        {pattern: 'js/vendor/custom.modernizr.js', watched: true, served: true, included: true},
-        {pattern: 'js/vendor/jquery.js', watched: true, served: true, included: true},
-        {pattern: 'js/foundation/*.js', watched: true, served: true, included: false},
+        {pattern: 'dist/assets/css/*.css', watched: true, served: true, included: false},
+        {pattern: 'dist/assets/js/vendor/custom.modernizr.js', watched: true, served: true, included: true},
+        {pattern: 'dist/assets/js/vendor/fastclick.js', watched: true, served: true, included: true},
+        {pattern: 'dist/assets/js/vendor/placeholder.js', watched: true, served: true, included: true},
+        {pattern: 'dist/assets/js/vendor/jquery.js', watched: true, served: true, included: true},
+        {pattern: 'dist/assets/js/vendor/jquery.cookie.js', watched: true, served: true, included: true},
+        {pattern: 'dist/assets/js/foundation/*.js', watched: true, served: true, included: false},
         {pattern: 'spec/**/*.html', watched: true, served: true, included: true},
         {pattern: 'spec/**/*.js', watched: true, served: true, included: true}
     ],
@@ -45,7 +48,7 @@ module.exports = function(config) {
     // - Safari (only Mac; has to be installed with `npm install karma-safari-launcher`)
     // - PhantomJS
     // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
-    browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'SmallChrome', 'Firefox'],
+    browsers: ['TinyPhantomJS', 'SmallPhantomJS', 'TinyChrome', 'Firefox'],
 
     customLaunchers: {
         TinyChrome: {

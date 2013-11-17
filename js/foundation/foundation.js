@@ -22,13 +22,6 @@
     $('head').append('<meta class="foundation-mq-large">')
   }
 
-<<<<<<< HEAD
-  /*
-    matchMedia() polyfill - Test a CSS media 
-    type/query in JS. Authors & copyright (c) 2012: 
-    Scott Jehl, Paul Irish, Nicholas Zakas. 
-    Dual MIT/BSD license
-=======
   // Enable FastClick
   if(typeof FastClick !== 'undefined') {
     FastClick.attach(document.body);
@@ -48,15 +41,11 @@
 
     return $(selector, context);
   };
->>>>>>> refs/remotes/origin/5.0-wip
 
   /*
     https://github.com/paulirish/matchMedia.js
   */
-<<<<<<< HEAD
-=======
 
->>>>>>> refs/remotes/origin/5.0-wip
   window.matchMedia = window.matchMedia || (function( doc, undefined ) {
 
     "use strict";
@@ -170,33 +159,15 @@
     return string;
   }
 
-  function removeQuotes(string) {
-      if (typeof string === 'string' || string instanceof String) {
-        string = string.replace(/^[\\'"]+|(;\s?})+|[\\'"]+$/g, '');
-      }
-      return string;
-  }
-
   window.Foundation = {
     name : 'Foundation',
 
-<<<<<<< HEAD
-    version : '4.3.2',
-
-    cache : {},
-
-    media_queries : {
-      small : removeQuotes($('.foundation-mq-small').css('font-family')),
-      medium : removeQuotes($('.foundation-mq-medium').css('font-family')),
-      large : removeQuotes($('.foundation-mq-large').css('font-family'))
-=======
     version : '5.0.0',
 
     media_queries : {
-      small : S('.foundation-mq-small').css('font-family').replace(/\'/g, ''),
-      medium : S('.foundation-mq-medium').css('font-family').replace(/\'/g, ''),
-      large : S('.foundation-mq-large').css('font-family').replace(/\'/g, '')
->>>>>>> refs/remotes/origin/5.0-wip
+      small : S('.foundation-mq-small').css('font-family').replace(/^[\\'"]+|(;\s?})+|[\\'"]+$/g, ''),
+      medium : S('.foundation-mq-medium').css('font-family').replace(/^[\\'"]+|(;\s?})+|[\\'"]+$/g, ''),
+      large : S('.foundation-mq-large').css('font-family').replace(/^[\\'"]+|(;\s?})+|[\\'"]+$/g, '')
     },
 
     stylesheet : $('<style></style>').appendTo('head')[0].sheet,
