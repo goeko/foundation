@@ -158,6 +158,10 @@ Yeoman Generator
 * [Yeoman-Foundation](https://npmjs.org/package/yeoman-foundation) by Vincent Mac
 * [Generator-Foundation-Ext](https://github.com/jamesakers/generator-foundation-ext) by James Akers
 
+Gökhan Karaca
+
+* 2013-11-17 - Marge to master
+
 MIT Open Source License
 =======================
 
