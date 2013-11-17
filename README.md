@@ -174,7 +174,7 @@ Yeoman Generator
 
 Gökhan Karaca
 
-* 2013-11-17 - Merge to develop branch
+* 2013-11-17 - Merge to develop branch look at seantimm/5.0-wip-tests
 
 
 MIT Open Source License
